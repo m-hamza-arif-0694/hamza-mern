@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management Portal | HisabDo Day 2</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Glow Backgrounds -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="app-container">
+    <!-- Header & Hero Section -->
+    <header class="header">
+      <div class="badge">
+        <span class="badge-icon">⚡</span> HisabDo MERN Internship • Day 2 Task
+      </div>
+      <h1 class="main-heading">Student <span class="text-gradient">Management</span> Portal</h1>
+      <p class="main-description">
+        A vanilla JavaScript application demonstrating variables, objects, arrays, functions, array methods, and real-time DOM manipulation.
+      </p>
+
+      <!-- Dynamic Statistics Summary Bar -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-icon">🎓</div>
+          <div class="stat-info">
+            <span class="stat-value" id="totalStudentsCount">0</span>
+            <span class="stat-label">Total Students</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-info">
+            <span class="stat-value" id="avgMarksValue">0</span>
+            <span class="stat-label">Average Marks</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-info">
+            <span class="stat-value" id="topScoreValue">0</span>
+            <span class="stat-label">Highest Score</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="main-content">
+      <!-- Left Column: Add Student Form -->
+      <section class="form-section">
+        <div class="card form-card">
+          <div class="card-header">
+            <h3>➕ Add New Student</h3>
+            <p>Enter details below to register a new student</p>
+          </div>
+          <form id="addStudentForm" class="student-form" novalidate>
+            <div class="form-group">
+              <label for="studentName">Full Name</label>
+              <input type="text" id="studentName" placeholder="e.g. Muhammad Hamza" required>
+              <span class="error-msg" id="nameError">Name is required</span>
+            </div>
+
+            <div class="form-group">
+              <label for="studentEmail">Email Address</label>
+              <input type="email" id="studentEmail" placeholder="e.g. hamza@example.com" required>
+              <span class="error-msg" id="emailError">Please enter a valid email</span>
+            </div>
+
+            <div class="form-group">
+              <label for="studentCourse">Course</label>
+              <select id="studentCourse" required>
+                <option value="" disabled selected>Select a Course</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                <option value="Data Science">Data Science</option>
+              </select>
+              <span class="error-msg" id="courseError">Please select a course</span>
+            </div>
+
+            <div class="form-group">
+              <label for="studentMarks">Marks (0 - 100)</label>
+              <input type="number" id="studentMarks" min="0" max="100" placeholder="e.g. 88" required>
+              <span class="error-msg" id="marksError">Enter valid marks (0-100)</span>
+            </div>
+
+            <button type="submit" class="primary-btn submit-btn">
+              <span>Register Student</span>
+              <span class="btn-icon">➜</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Right Column: Student Roster & Controls -->
+      <section class="roster-section">
+        <!-- Search & Filter Controls -->
+        <div class="controls-card">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search students by name...">
+          </div>
+          
+          <div class="filter-box">
+            <label for="filterMarks">Filter Marks:</label>
+            <select id="filterMarks">
+              <option value="all">All Marks</option>
+              <option value="80">Distinction (80+)</option>
+              <option value="50">Passing (50+)</option>
+              <option value="below50">At Risk (&lt; 50)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Student Grid / List -->
+        <div id="studentGrid" class="student-grid"></div>
+
+        <!-- Empty State Container -->
+        <div id="emptyState" class="empty-state hidden">
+          <div class="empty-icon">📂</div>
+          <h4>No Students Found</h4>
+          <p>Try adjusting your search query or filter options.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Built with ❤️ for <strong>HisabDo Internship Bootcamp (Day 2)</strong> • Pure Vanilla HTML, CSS & JS</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
