@@ -1,0 +1,22 @@
+{
+  "name": "hisabdo-day1-backend",
+  "version": "1.0.0",
+  "description": "Day 1 Express.js basic server for HisabDo Internship Bootcamp",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "mern",
+    "express",
+    "node",
+    "hisabdo"
+  ],
+  "author": "HisabDo Intern",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
