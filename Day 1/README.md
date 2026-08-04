@@ -137,8 +137,8 @@ npm run dev
 - [x] Project runs successfully without errors
 - [x] Git repository initialized (`git init`)
 - [x] Comprehensive `README.md` created
-- [ ] Push repository to GitHub
-- [ ] Send GitHub repository link and source code files to: **`hisabdo.app@gmail.com`**
+- [x] Push repository to GitHub
+- [x] Send GitHub repository link and source code files to: **`hisabdo.app@gmail.com`**
 
 ---
 
