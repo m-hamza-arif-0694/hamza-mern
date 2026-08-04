@@ -151,9 +151,9 @@ To push this project to your GitHub account:
 git add .
 git commit -m "feat: complete Day 1 MERN Track submission"
 
-# 2. Create a new repository on GitHub (e.g., HisabDo-Day1-MERN)
+# 2. Create a new repository on GitHub (e.g., HisabDo-Internship-Bootcamp)
 # 3. Link your local repo to GitHub
-git remote add origin https://github.com/YOUR_USERNAME/HisabDo-Day1-MERN.git
+git remote add origin https://github.com/YOUR_USERNAME/HisabDo-Internship-Bootcamp.git
 
 # 4. Push to main branch
 git branch -M main
