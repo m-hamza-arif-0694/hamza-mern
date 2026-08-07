@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "day5-hisabdo-student-api-mongodb",
+		"name": "HisabDo Day 5 Student Management API (MongoDB + Mongoose)",
+		"description": "Postman Collection for Day 5 MERN Internship Task — Student Management REST API with MongoDB database persistence.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. GET All Students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students"
+					]
+				},
+				"description": "Fetch all student records from MongoDB."
+			},
+			"response": []
+		},
+		{
+			"name": "2. GET Student by ID (Success - 200)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/students/64b0f9c2d1e2f3a4b5c6d7e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students",
+						"64b0f9c2d1e2f3a4b5c6d7e8"
+					]
+				},
+				"description": "Fetch single student by valid MongoDB ObjectId."
+			},
+			"response": []
+		},
+		{
+			"name": "3. GET Student by ID (Invalid ID - 400)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/students/invalid-id-123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students",
+						"invalid-id-123"
+					]
+				},
+				"description": "Returns 400 Bad Request when an invalid ObjectId format is passed."
+			},
+			"response": []
+		},
+		{
+			"name": "4. GET Student by ID (Not Found - 404)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/students/507f1f77bcf86cd799439011",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students",
+						"507f1f77bcf86cd799439011"
+					]
+				},
+				"description": "Returns 404 Not Found for non-existent student ObjectId."
+			},
+			"response": []
+		},
+		{
+			"name": "5. POST Create Student (Success - 201)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Usman Raza\",\n  \"email\": \"usman@example.com\",\n  \"course\": \"Cyber Security\",\n  \"marks\": 92\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students"
+					]
+				},
+				"description": "Create a new student document in MongoDB."
+			},
+			"response": []
+		},
+		{
+			"name": "6. POST Create Student (Validation Error - 400)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"A\",\n  \"email\": \"bad-email\",\n  \"marks\": 150\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students"
+					]
+				},
+				"description": "Returns 400 Bad Request when validation rules fail."
+			},
+			"response": []
+		},
+		{
+			"name": "7. PUT Update Student (Success - 200)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"course\": \"Advanced Software Engineering\",\n  \"marks\": 98\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/students/64b0f9c2d1e2f3a4b5c6d7e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students",
+						"64b0f9c2d1e2f3a4b5c6d7e8"
+					]
+				},
+				"description": "Update existing student fields by ObjectId."
+			},
+			"response": []
+		},
+		{
+			"name": "8. PUT Update Student (Not Found - 404)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"marks\": 85\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/students/507f1f77bcf86cd799439011",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students",
+						"507f1f77bcf86cd799439011"
+					]
+				},
+				"description": "Returns 404 Not Found when updating a non-existent ObjectId."
+			},
+			"response": []
+		},
+		{
+			"name": "9. DELETE Student (Success - 200)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/students/64b0f9c2d1e2f3a4b5c6d7e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students",
+						"64b0f9c2d1e2f3a4b5c6d7e8"
+					]
+				},
+				"description": "Delete student document by ObjectId."
+			},
+			"response": []
+		},
+		{
+			"name": "10. DELETE Student (Not Found - 404)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/students/507f1f77bcf86cd799439011",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"students",
+						"507f1f77bcf86cd799439011"
+					]
+				},
+				"description": "Returns 404 Not Found when deleting non-existent ObjectId."
+			},
+			"response": []
+		}
+	]
+}

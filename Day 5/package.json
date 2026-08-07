@@ -1,0 +1,32 @@
+{
+  "name": "hisabdo-day5-student-api-mongodb",
+  "version": "1.0.0",
+  "description": "Student Management System REST API with MongoDB & Mongoose — HisabDo MERN Internship (Day 5)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node test-api.js"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "mongoose",
+    "rest-api",
+    "crud",
+    "hisabdo",
+    "mern-internship"
+  ],
+  "author": "Hamza Arif",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.1.9"
+  }
+}
