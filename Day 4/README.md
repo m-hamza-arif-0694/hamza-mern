@@ -30,6 +30,17 @@ Day 4/
 │   └── server.js              # Server entry point
 ├── postman/
 │   └── HisabDo_Day4_Student_API.postman_collection.json # Exported Postman collection
+├── screenshots/               # API Testing Evidence & Postman Screenshots
+│   ├── Get ALL Students.png
+│   ├── GET Student by ID (Success).png
+│   ├── GET Student by ID (Invalid ID - 400).png
+│   ├── GET Student by ID (Not Found - 404).png
+│   ├── POST Create Student (Success - 201).png
+│   ├── POST Create Student (Validation Error - 400).png
+│   ├── PUT Update Student (Success - 200).png
+│   ├── PUT Update Student (Not Found - 404).png
+│   ├── DELETE Student ( Success - 200).png
+│   └── DELETE Student (Not Found - 404).png
 ├── test-api.js                # Automated verification script
 ├── .gitignore
 ├── package.json
@@ -253,12 +264,20 @@ npm test
 
 A Postman collection JSON file is available under `postman/HisabDo_Day4_Student_API.postman_collection.json`.
 
-### Tested Scenarios:
-- ✅ Successful retrieval, creation, modification, and deletion.
-- ❌ Invalid Student ID (e.g. `/students/abc` -> `400 Bad Request`).
-- ❌ Non-existent Student ID (e.g. `/students/999` -> `404 Not Found`).
-- ❌ Missing required fields on POST.
-- ❌ Invalid email format and out-of-range marks (> 100 or < 0).
+Visual proof of testing for all endpoints and validation rules can be found in the `screenshots/` directory:
+
+| Test Case | Method & Endpoint | Screenshot File |
+| :--- | :--- | :--- |
+| **Get All Students** | `GET /students` | `screenshots/Get ALL Students.png` |
+| **Get Student by ID (Success)** | `GET /students/1` | `screenshots/GET Student by ID (Success).png` |
+| **Get Student by ID (Invalid ID)** | `GET /students/abc` | `screenshots/GET Student by ID (Invalid ID - 400).png` |
+| **Get Student by ID (Not Found)** | `GET /students/999` | `screenshots/GET Student by ID (Not Found - 404).png` |
+| **Create Student (Success)** | `POST /students` | `screenshots/POST Create Student (Success - 201).png` |
+| **Create Student (Validation Error)** | `POST /students` | `screenshots/POST Create Student (Validation Error - 400).png` |
+| **Update Student (Success)** | `PUT /students/2` | `screenshots/PUT Update Student (Success - 200).png` |
+| **Update Student (Not Found)** | `PUT /students/999` | `screenshots/PUT Update Student (Not Found - 404).png` |
+| **Delete Student (Success)** | `DELETE /students/4` | `screenshots/DELETE Student ( Success - 200).png` |
+| **Delete Student (Not Found)** | `DELETE /students/999` | `screenshots/DELETE Student (Not Found - 404).png` |
 
 ---
 
