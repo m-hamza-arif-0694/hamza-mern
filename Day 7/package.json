@@ -1,0 +1,22 @@
+{
+  "name": "hisabdo-day7-fullstack-student-app",
+  "version": "1.0.0",
+  "description": "Full-Stack Student Management Application (React + Express + MongoDB + JWT Auth) — HisabDo MERN Internship (Day 7)",
+  "scripts": {
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev",
+    "test:backend": "cd backend && npm test"
+  },
+  "keywords": [
+    "mern",
+    "react",
+    "express",
+    "mongodb",
+    "mongoose",
+    "jwt",
+    "fullstack",
+    "hisabdo"
+  ],
+  "author": "Hamza Arif",
+  "license": "ISC"
+}

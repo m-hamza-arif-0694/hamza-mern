@@ -1,0 +1,73 @@
+{
+  "info": {
+    "_postman_id": "day7-hisabdo-fullstack-collection",
+    "name": "HisabDo Day 7 - Full-Stack Student Management API",
+    "description": "Postman Collection for Day 7 Full-Stack API endpoints (User Auth & Protected Student Management CRUD).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - 1. Register User",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Hamza Arif\",\n  \"email\": \"hamza@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "register"] }
+      }
+    },
+    {
+      "name": "Auth - 2. Login User",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"hamza@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/auth/login", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "login"] }
+      }
+    },
+    {
+      "name": "Auth - 3. Get User Profile (/me)",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "http://localhost:5000/api/auth/me", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "me"] }
+      }
+    },
+    {
+      "name": "Students - 1. Get All Students",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "http://localhost:5000/api/students", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "students"] }
+      }
+    },
+    {
+      "name": "Students - 2. Add New Student",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Usman Raza\",\n  \"email\": \"usman@example.com\",\n  \"course\": \"Cyber Security\",\n  \"marks\": 92\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/students", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "students"] }
+      }
+    },
+    {
+      "name": "Students - 3. Search Students",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "http://localhost:5000/api/students?search=Cyber", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "students"], "query": [ { "key": "search", "value": "Cyber" } ] }
+      }
+    }
+  ]
+}
