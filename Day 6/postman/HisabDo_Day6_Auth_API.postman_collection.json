@@ -1,0 +1,214 @@
+{
+  "info": {
+    "_postman_id": "day6-hisabdo-jwt-auth-collection",
+    "name": "HisabDo Day 6 - JWT Authentication REST API",
+    "description": "Postman collection for testing Day 6 JWT Authentication API endpoints (Register, Login, Password Hashing, JWT Bearer Token, Protected Routes).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. POST User Registration (Success - 201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Hamza Arif\",\n  \"email\": \"hamza@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        },
+        "description": "Registers a new user, hashes password with bcryptjs, and returns a signed JWT token."
+      },
+      "response": []
+    },
+    {
+      "name": "2. POST User Registration (Duplicate Email Error - 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Hamza Arif\",\n  \"email\": \"hamza@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        },
+        "description": "Fails when attempting to register with an email address that already exists."
+      },
+      "response": []
+    },
+    {
+      "name": "3. POST User Registration (Validation Error - 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"H\",\n  \"email\": \"invalid-email-format\",\n  \"password\": \"123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        },
+        "description": "Fails validation when name is too short, email format is invalid, or password is less than 6 characters."
+      },
+      "response": []
+    },
+    {
+      "name": "4. POST User Login (Success - 200)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"hamza@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Authenticates user credentials against bcrypt hash and returns a fresh JWT Bearer token."
+      },
+      "response": []
+    },
+    {
+      "name": "5. POST User Login (Invalid Credentials Error - 401)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"hamza@example.com\",\n  \"password\": \"wrongpassword\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Returns 401 Unauthorized when an incorrect password is provided."
+      },
+      "response": []
+    },
+    {
+      "name": "6. GET Protected User Profile /me (Success - 200)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/auth/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        },
+        "description": "Protected route. Returns current authenticated user profile when a valid Bearer token is provided in Authorization header."
+      },
+      "response": []
+    },
+    {
+      "name": "7. GET Protected User Profile /me (Missing Token Error - 401)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/auth/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        },
+        "description": "Protected route. Returns 401 Unauthorized when no Authorization Bearer token is passed."
+      },
+      "response": []
+    }
+  ]
+}
