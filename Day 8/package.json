@@ -1,0 +1,20 @@
+{
+  "name": "hisabdo-day8-capstone-architecture",
+  "version": "1.0.0",
+  "description": "HisabDo Main Capstone Project Architecture & Ecosystem Analysis — HisabDo MERN Internship (Day 8)",
+  "scripts": {
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev",
+    "test:backend": "cd backend && npm test"
+  },
+  "keywords": [
+    "hisabdo",
+    "capstone",
+    "nextjs",
+    "mern",
+    "architecture",
+    "analysis"
+  ],
+  "author": "Hamza Arif",
+  "license": "ISC"
+}
