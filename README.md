@@ -1,10 +1,8 @@
-## Day 10 - Digital Khata Functional Module & Validation
+## Day 11 - Expenses Management Module (CRUD & Validation)
 
-### Overview
-Implemented the core Digital Khata functional module for HisabDo. Built interactive state tracking for transaction entries with real-time financial summary calculations and local storage persistence. Designed a modal component with full Zod schema validation using React Hook Form to ensure input safety and error handling, all wrapped in a responsive Tailwind UI.
-
-### Features Completed
-- Dynamic real-time transaction tracking (Receivables, Payables, Net Balance)
-- Local storage persistence for state management across reloads
-- Form validation using React Hook Form and Zod schema definitions
-- Refactored modular UI components (`Card`, `Button`, `TransactionModal`)
+### Progress Summary
+- Expanded the HisabDo ecosystem with a full Expenses Management module (`/expenses`).
+- Implemented complete CRUD capabilities (List view, Add form modal, Edit form modal, Delete action).
+- Integrated React Hook Form with Zod schema validation for strict input handling.
+- Added dynamic state management with persistent `localStorage` support.
+- Built explicit Loading, Empty, and Error states for seamless UX across viewport sizes.
