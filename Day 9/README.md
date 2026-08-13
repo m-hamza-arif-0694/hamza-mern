@@ -55,20 +55,44 @@ Day 9/
 
 ---
 
+## 📸 Screenshots Directory & Submission Visuals
+
+All page screenshots required for the Day 9 submission are stored inside [`Day 9/screenshots/`](file:///e:/Hamza%20doc/HisabDo%20Internship/Day%209/screenshots/README.md):
+
+* `01_home_landing_page.png` — Home Landing Page (`http://localhost:3000/`)
+* `02_features_page.png` — Features Showcase Page (`http://localhost:3000/features`)
+* `03_pricing_page.png` — Pricing & Plans (`http://localhost:3000/pricing`)
+* `04_download_page.png` — App Download Portal (`http://localhost:3000/download`)
+* `05_contact_page.png` — Contact Support Form (`http://localhost:3000/contact`)
+* `06_dashboard_overview.png` — Dashboard Interface (`http://localhost:3000/dashboard`)
+* `07_mobile_responsive_view.png` — Mobile Drawer Navigation View (375px)
+
+---
+
 ## 🏃 How to Run the Day 9 Next.js Project
 
-### 1. Install Dependencies
+### Step 1: Open Terminal & Navigate to Day 9 Folder
 ```bash
 cd "Day 9"
+```
+
+### Step 2: Install Node Dependencies
+```bash
 npm install
 ```
 
-### 2. Launch Next.js Development Server
+### Step 3: Start Development Server
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to explore the website and web app.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view and explore all implemented pages.
+
+### Step 4: (Optional) Build & Test Production Bundle
+```bash
+npm run build
+npm run start
+```
 
 ---
 
@@ -84,3 +108,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to explore t
 * **Author**: Muhammad Hamza Arif
 * **Program**: HisabDo MERN / Next.js Internship Track (Day 9)
 * **Submitted to**: `hisabdo.app@gmail.com`
+
