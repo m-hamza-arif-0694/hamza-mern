@@ -1,16 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
   Receipt,
   BarChart3,
   Settings,
+  User,
   LogOut,
   ArrowLeft,
+  Menu,
+  X,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -19,6 +22,7 @@ const NAV_ITEMS = [
   { name: "Customers (Khata)", href: "/customers", icon: Users },
   { name: "Expenses", href: "/expenses", icon: Receipt },
   { name: "Reports", href: "/reports", icon: BarChart3 },
+  { name: "User Profile", href: "/profile", icon: User },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
@@ -28,21 +32,40 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const { isAuthenticated, logout } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Prevent flash of unauthenticated content
   if (isAuthenticated === false) {
     return null;
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between p-4 shrink-0 fixed inset-y-0 left-0 z-40">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row">
+      {/* Mobile Top Header */}
+      <div className="md:hidden flex items-center justify-between p-4 bg-slate-900 border-b border-slate-800">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-bold text-sm">
+            H
+          </div>
+          <span className="font-bold text-base tracking-tight text-white">HisabDo</span>
+        </div>
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="text-slate-400 hover:text-white p-1"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
+
+      {/* Sidebar (Desktop + Mobile Drawer) */}
+      <aside
+        className={`${
+          mobileMenuOpen ? "block" : "hidden"
+        } md:block w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between p-4 shrink-0 md:fixed md:inset-y-0 md:left-0 z-40`}
+      >
         <div className="space-y-6">
-          {/* App Logo */}
-          <div className="flex items-center gap-2 px-3 py-2">
+          {/* Logo (Desktop) */}
+          <div className="hidden md:flex items-center gap-2 px-3 py-2">
             <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-bold text-lg">
               H
             </div>
@@ -60,6 +83,7 @@ export default function DashboardLayout({
                 <Link
                   key={item.name}
                   href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     isActive
                       ? "bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/10"
@@ -74,8 +98,8 @@ export default function DashboardLayout({
           </nav>
         </div>
 
-        {/* Bottom Actions: Logout & Back to Home */}
-        <div className="space-y-2 pt-4 border-t border-slate-800">
+        {/* Bottom Actions */}
+        <div className="space-y-2 pt-4 border-t border-slate-800 mt-6 md:mt-0">
           <button
             onClick={logout}
             className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-colors cursor-pointer"
@@ -95,7 +119,7 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 ml-64 p-8">{children}</main>
+      <main className="flex-1 md:ml-64 p-4 sm:p-8">{children}</main>
     </div>
   );
 }
