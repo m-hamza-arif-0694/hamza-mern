@@ -17,6 +17,19 @@ All submission requirements are documented in detail within [DAY8_ANALYSIS.md](f
 
 ---
 
+## 📸 Screenshots Directory & Submission Visuals
+
+All screenshots required for the Day 8 submission are stored inside [`Day 8/screenshots/`](file:///e:/Hamza%20doc/HisabDo%20Internship/Day%208/screenshots/README.md):
+
+* `01_hisabdo_website_analysis.png` — Website Exploration (`https://hisabdo.com/` or `http://localhost:3000`)
+* `02_user_flow_diagram.png` — User Flow Diagram & Architecture Flowchart
+* `03_nextjs_frontend_app.png` — Next.js 14 App Router Frontend (`http://localhost:3000`)
+* `04_express_backend_api.png` — Express REST API Server (`http://localhost:5000/api/health`)
+* `05_architecture_analysis_doc.png` — `DAY8_ANALYSIS.md` Architecture & 10 UI/UX Suggestions
+* `06_mobile_app_features.png` — Mobile Viewport (375px) / Mobile App Features
+
+---
+
 ## 📁 Repository Structure
 
 ```
