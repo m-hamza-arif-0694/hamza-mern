@@ -29,6 +29,19 @@ Welcome to **Day 10 of the HisabDo MERN / Next.js Internship Program**. Today's 
 
 ---
 
+## 📸 Screenshots Directory & Submission Visuals
+
+All page screenshots required for the Day 10 submission are stored inside [`Day 10/screenshots/`](file:///e:/Hamza%20doc/HisabDo%20Internship/Day%2010/screenshots/README.md):
+
+* `01_dashboard_overview.png` — Working Dashboard Overview (`http://localhost:3000/dashboard`)
+* `02_cashbook_module.png` — Digital Cashbook Functional Module (`http://localhost:3000/dashboard/cashbook`)
+* `03_customer_udhar_module.png` — Customer Udhar Book Functional Module (`http://localhost:3000/dashboard/customers`)
+* `04_whatsapp_reminder_modal.png` — WhatsApp Payment Reminder Template Modal
+* `05_form_validation_errors.png` — Inline Form Validation Errors (`src/lib/validation.js`)
+* `06_reusable_ui_components.png` — Reusable UI Component Library (`src/components/ui/`)
+
+---
+
 ## 📝 Short Description of Today's Implementation (Day 10)
 
 Today, we engineered the core functional backbone of the HisabDo Web Application inside `Day 10/`. First, we established a clean **UI Component Library** under `src/components/ui/` containing modular primitives (`Button`, `Input`, `Select`, `Card`, `Table`, `Badge`, `Modal`). Next, we wrote a centralized validation utility `src/lib/validation.js` providing immediate feedback on invalid amounts, missing fields, or incorrect phone formats.
