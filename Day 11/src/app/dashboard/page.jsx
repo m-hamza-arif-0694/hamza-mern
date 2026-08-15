@@ -104,7 +104,7 @@ export default function DashboardOverviewPage() {
       </div>
 
       {/* WORKSPACE GRID */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '1.5rem', flexWrap: 'wrap' }}>
+      <div className="responsive-workspace-grid">
         <Card>
           <CardHeader title="Quick Cash Logger" subtitle="Form validation active" icon={Plus} />
           <CardBody>
