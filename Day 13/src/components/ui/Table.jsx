@@ -17,8 +17,8 @@ export default function Table({
   }
 
   return (
-    <div style={{ width: '100%', overflowX: 'auto' }}>
-      <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.5rem' }}>
+    <div className="horizontal-scroll-container" style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+      <table style={{ width: '100%', minWidth: '550px', borderCollapse: 'separate', borderSpacing: '0 0.5rem' }}>
         <thead>
           <tr>
             {columns.map((col, idx) => (

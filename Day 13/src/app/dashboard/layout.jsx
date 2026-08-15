@@ -32,9 +32,9 @@ export default function DashboardLayout({ children }) {
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: 'calc(100vh - 72px)', background: '#090d16' }}>
+    <div className="dashboard-layout-wrapper">
       <Sidebar />
-      <main style={{ flex: 1, padding: '2rem 1.5rem', overflowX: 'hidden' }}>
+      <main className="dashboard-main-content">
         {children}
       </main>
     </div>

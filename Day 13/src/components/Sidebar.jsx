@@ -23,7 +23,7 @@ export default function Sidebar() {
   const isActive = (path) => pathname === path;
 
   return (
-    <aside style={{
+    <aside className="sidebar-aside" style={{
       width: '270px',
       background: 'rgba(15, 23, 42, 0.95)',
       borderRight: '1px solid rgba(255, 255, 255, 0.08)',
