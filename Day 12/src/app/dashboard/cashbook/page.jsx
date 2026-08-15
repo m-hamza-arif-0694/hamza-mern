@@ -142,7 +142,8 @@ export default function CashbookCRUDPage() {
         </Card>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '1.5rem', flexWrap: 'wrap' }}>
+      {/* VERTICAL STACK: CREATE ENTRY FORM (TOP) -> TRANSACTIONS TABLE (BELOW) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <Card>
           <CardHeader title="Create Entry" icon={Plus} />
           <CardBody>

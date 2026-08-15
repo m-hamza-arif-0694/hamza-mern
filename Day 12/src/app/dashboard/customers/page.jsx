@@ -108,12 +108,15 @@ export default function CustomersCRUDPage() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '1.5rem', flexWrap: 'wrap' }}>
+      {/* VERTICAL STACK: REGISTER CUSTOMER FORM (TOP) -> CUSTOMER DIRECTORY & LEDGER (BELOW) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        {/* TOP: CREATE CUSTOMER FORM */}
         <Card>
-          <CardHeader title="Customer Directory" icon={Users} />
+          <CardHeader title="Register New Customer" subtitle="Pakistani phone validation active (+923xxxxxxxxx)" icon={UserPlus} />
           <CardBody>
-            <form onSubmit={handleAddCustomer} style={{ marginBottom: '1.5rem', background: 'rgba(15, 23, 42, 0.6)', padding: '1rem', borderRadius: '12px' }}>
+            <form onSubmit={handleAddCustomer} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', alignItems: 'end' }}>
               <Input
+                label="Customer Name"
                 placeholder="Customer Name"
                 value={custName}
                 onChange={(e) => setCustName(e.target.value)}
@@ -121,6 +124,7 @@ export default function CustomersCRUDPage() {
                 required
               />
               <Input
+                label="Phone Number"
                 placeholder="Phone (e.g. +923001234567)"
                 value={custPhone}
                 onChange={(e) => setCustPhone(e.target.value)}
@@ -128,38 +132,50 @@ export default function CustomersCRUDPage() {
                 icon={Phone}
                 required
               />
-              <Button type="submit" variant="success" style={{ width: '100%' }} icon={UserPlus}>
-                Save Customer
-              </Button>
+              <div style={{ marginBottom: '0.25rem' }}>
+                <Button type="submit" variant="success" style={{ width: '100%' }} icon={UserPlus}>
+                  Save Customer
+                </Button>
+              </div>
             </form>
+          </CardBody>
+        </Card>
 
+        {/* BOTTOM: CUSTOMER DIRECTORY & LEDGER */}
+        <Card>
+          <CardHeader title="Customer Directory & Net Dues Ledger" icon={Users} subtitle="Click a customer to record entry or send WhatsApp reminder" />
+          <CardBody>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {customers.map(c => (
                 <div
                   key={c.id}
                   onClick={() => setSelectedCustId(c.id)}
                   style={{
-                    padding: '0.75rem 1rem',
-                    borderRadius: '8px',
+                    padding: '0.85rem 1.25rem',
+                    borderRadius: '10px',
                     background: selectedCustId === c.id ? 'rgba(59, 130, 246, 0.2)' : 'rgba(15, 23, 42, 0.6)',
+                    border: '1px solid',
+                    borderColor: selectedCustId === c.id ? 'rgba(59, 130, 246, 0.4)' : 'rgba(255,255,255,0.06)',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '0.75rem'
                   }}
                 >
                   <div>
-                    <div style={{ fontWeight: 700, color: 'white' }}>{c.name}</div>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{c.phone}</div>
+                    <div style={{ fontWeight: 700, color: 'white', fontSize: '0.95rem' }}>{c.name}</div>
+                    <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{c.phone}</div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <div style={{ fontWeight: 800, color: c.netBalance >= 0 ? '#34d399' : '#f87171' }}>
-                      Rs. {Math.abs(c.netBalance).toLocaleString()}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ fontWeight: 800, fontSize: '1rem', color: c.netBalance >= 0 ? '#34d399' : '#f87171' }}>
+                      {c.netBalance >= 0 ? 'You Will Get: ' : 'You Will Give: '} Rs. {Math.abs(c.netBalance).toLocaleString()}
                     </div>
-                    <button onClick={(e) => { e.stopPropagation(); handleOpenEditCustModal(c); }} style={{ background: 'transparent', border: 'none', color: '#60a5fa', cursor: 'pointer' }}>
+                    <button onClick={(e) => { e.stopPropagation(); handleOpenEditCustModal(c); }} title="Edit Customer" style={{ background: 'rgba(59, 130, 246, 0.15)', border: '1px solid rgba(59, 130, 246, 0.3)', color: '#60a5fa', padding: '0.4rem 0.6rem', borderRadius: '6px', cursor: 'pointer' }}>
                       <Edit size={14} />
                     </button>
-                    <button onClick={(e) => { e.stopPropagation(); handleDeleteCustomer(c.id); }} style={{ background: 'transparent', border: 'none', color: '#f87171', cursor: 'pointer' }}>
+                    <button onClick={(e) => { e.stopPropagation(); handleDeleteCustomer(c.id); }} title="Delete Customer" style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', padding: '0.4rem 0.6rem', borderRadius: '6px', cursor: 'pointer' }}>
                       <Trash2 size={14} />
                     </button>
                   </div>

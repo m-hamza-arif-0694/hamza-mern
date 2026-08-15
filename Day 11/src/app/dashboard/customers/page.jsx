@@ -186,8 +186,8 @@ export default function CustomersCRUDPage() {
         </Card>
       </div>
 
-      {/* TWO COLUMN WORKSPACE */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '1.5rem', flexWrap: 'wrap' }}>
+      {/* VERTICAL STACK: REGISTER CUSTOMER FORM (TOP) -> CUSTOMER DIRECTORY & LEDGER (BELOW) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         
         {/* LEFT COLUMN: CREATE CUSTOMER & DIRECTORY */}
         <Card>

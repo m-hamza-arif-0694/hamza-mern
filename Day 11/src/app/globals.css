@@ -123,6 +123,22 @@ body {
   gap: 1.5rem;
 }
 
+/* Horizontal Scroll Helper */
+.horizontal-scroll-container {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-x pan-y !important;
+  padding-bottom: 0.5rem;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontal-scroll-container::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 3px;
+}
+
 @media (max-width: 768px) {
   .mobile-hide { display: none !important; }
   .mobile-show { display: block !important; }

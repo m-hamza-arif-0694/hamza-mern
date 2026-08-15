@@ -175,8 +175,8 @@ export default function MultiBusinessCRUDPage() {
         </Card>
       </div>
 
-      {/* WORKSPACE GRID: CREATE BRANCH FORM + BRANCHES TABLE */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '1.5rem', flexWrap: 'wrap' }}>
+      {/* VERTICAL STACK: REGISTER BRANCH FORM (TOP) -> BRANCHES DIRECTORY TABLE (BELOW) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         
         {/* CREATE BRANCH FORM */}
         <Card>
