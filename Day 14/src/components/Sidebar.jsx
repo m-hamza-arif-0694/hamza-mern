@@ -17,7 +17,8 @@ export default function Sidebar() {
     { name: 'Dashboard Overview', path: '/dashboard', icon: LayoutDashboard },
     { name: '1. Digital Cashbook (CRUD)', path: '/dashboard/cashbook', icon: BookOpen },
     { name: '2. Customer Ledgers (CRUD)', path: '/dashboard/customers', icon: Users },
-    { name: '3. Multi-Business (CRUD)', path: '/dashboard/businesses', icon: Building2 }
+    { name: '3. Multi-Business (CRUD)', path: '/dashboard/businesses', icon: Building2 },
+    { name: 'User Profile & Settings', path: '/dashboard/settings', icon: Settings }
   ];
 
   const isActive = (path) => pathname === path;
