@@ -1,0 +1,14 @@
+# node_modules & build
+/node_modules
+/.next/
+/out/
+/build
+
+# env & logs
+.env*.local
+*.log
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
