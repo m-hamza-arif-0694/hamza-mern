@@ -4,10 +4,10 @@
   "private": true,
   "description": "HisabDo Customers & Khata Management Module - Full CRUD API, Zod Validation, and Database Integration",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "node node_modules/next/dist/bin/next dev",
+    "build": "node node_modules/next/dist/bin/next build",
+    "start": "node node_modules/next/dist/bin/next start",
+    "lint": "node node_modules/next/dist/bin/next lint",
     "test": "node test-customers-khata-crud.js"
   },
   "dependencies": {
