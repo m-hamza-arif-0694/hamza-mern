@@ -10,10 +10,16 @@ const customerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
   type: z.enum(["Customer", "Supplier"]),
-  openingBalance: z.coerce.number().min(0, "Balance cannot be negative"),
+  openingBalance: z.coerce
+    .number()
+    .min(0, "Balance cannot be negative"),
 });
 
-export type CustomerFormData = z.infer<typeof customerSchema>;
+// Input type = what React Hook Form receives
+export type CustomerFormInput = z.input<typeof customerSchema>;
+
+// Output type = what Zod returns after validation
+export type CustomerFormData = z.output<typeof customerSchema>;
 
 export interface CustomerItem extends CustomerFormData {
   id: string;
@@ -26,14 +32,19 @@ interface ModalProps {
   initialData?: CustomerItem | null;
 }
 
-export function CustomerModal({ isOpen, onClose, onSubmit, initialData }: ModalProps) {
+export function CustomerModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData,
+}: ModalProps) {
   const {
     register,
     handleSubmit,
     reset,
     setValue,
     formState: { errors },
-  } = useForm<CustomerFormData>({
+  } = useForm<CustomerFormInput, any, CustomerFormData>({
     resolver: zodResolver(customerSchema),
     defaultValues: {
       type: "Customer",
@@ -68,55 +79,94 @@ export function CustomerModal({ isOpen, onClose, onSubmit, initialData }: ModalP
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
-        <button onClick={onClose} className="absolute right-4 top-4 text-slate-400 hover:text-white">
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 text-slate-400 hover:text-white"
+        >
           <X className="w-5 h-5" />
         </button>
 
         <h2 className="text-xl font-bold text-white mb-4">
-          {initialData ? "Edit Party Contact" : "Add New Customer / Supplier"}
+          {initialData
+            ? "Edit Party Contact"
+            : "Add New Customer / Supplier"}
         </h2>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+        <form
+          onSubmit={handleSubmit(handleFormSubmit)}
+          className="space-y-4"
+        >
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Full Name / Business Name</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">
+              Full Name / Business Name
+            </label>
+
             <input
               {...register("name")}
               placeholder="e.g. Ali Traders"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
-            {errors.name && <p className="text-xs text-rose-500 mt-1">{errors.name.message}</p>}
+
+            {errors.name && (
+              <p className="text-xs text-rose-500 mt-1">
+                {errors.name.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Phone Number</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">
+              Phone Number
+            </label>
+
             <input
               {...register("phone")}
               placeholder="e.g. 03001234567"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
-            {errors.phone && <p className="text-xs text-rose-500 mt-1">{errors.phone.message}</p>}
+
+            {errors.phone && (
+              <p className="text-xs text-rose-500 mt-1">
+                {errors.phone.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Party Type</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">
+              Party Type
+            </label>
+
             <select
               {...register("type")}
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             >
-              <option value="Customer">Customer (Gives Money)</option>
-              <option value="Supplier">Supplier (Takes Money)</option>
+              <option value="Customer">
+                Customer (Gives Money)
+              </option>
+              <option value="Supplier">
+                Supplier (Takes Money)
+              </option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Opening Balance (Rs.)</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">
+              Opening Balance (Rs.)
+            </label>
+
             <input
               type="number"
               {...register("openingBalance")}
               placeholder="0.00"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
-            {errors.openingBalance && <p className="text-xs text-rose-500 mt-1">{errors.openingBalance.message}</p>}
+
+            {errors.openingBalance && (
+              <p className="text-xs text-rose-500 mt-1">
+                {errors.openingBalance.message}
+              </p>
+            )}
           </div>
 
           <div className="flex justify-end gap-2 pt-2">
@@ -127,6 +177,7 @@ export function CustomerModal({ isOpen, onClose, onSubmit, initialData }: ModalP
             >
               Cancel
             </button>
+
             <button
               type="submit"
               className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg transition-colors"
