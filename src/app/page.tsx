@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between p-6 sm:p-12">
       {/* Header Navigation */}
-      <header className="max-w-6xl w-full mx-auto flex items-center justify-between py-4">
+<header className="w-full max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 py-4">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-bold text-lg">
             H
@@ -31,13 +31,13 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <main className="max-w-4xl mx-auto text-center space-y-8 my-auto py-12">
+<main className="w-full max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-8 pt-8">
         <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full">
           <ShieldCheck className="w-3.5 h-3.5" />
           Smart Local-First Khata
         </div>
 
-        <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
+<h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight...">
           Manage Your <span className="text-emerald-400">Ledger & Expenses</span> Effortlessly
         </h1>
 
@@ -64,7 +64,7 @@ export default function HomePage() {
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 text-left">
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 px-4">
           <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl backdrop-blur-sm">
             <BookOpen className="w-6 h-6 text-emerald-400 mb-3" />
             <h3 className="font-bold text-white text-base mb-1">Digital Khata</h3>
@@ -92,7 +92,7 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="max-w-6xl w-full mx-auto text-center text-xs text-slate-500 py-4 border-t border-slate-900">
+<footer className="max-w-6xl w-full mx-auto px-4 sm:px-6 text-center...">
         &copy; {new Date().getFullYear()} HisabDo App. Built for seamless business accounting.
       </footer>
     </div>
