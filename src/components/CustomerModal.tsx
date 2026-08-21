@@ -16,17 +16,12 @@ const customerSchema = z.object({
   openingBalance: z.coerce
     .number()
     .min(0, "Balance cannot be negative"),
-  openingBalance: z.coerce
-    .number()
-    .min(0, "Balance cannot be negative"),
 });
 
-export type CustomerFormData = z.output<typeof customerSchema>;
-type CustomerFormInput = z.input<typeof customerSchema>;
 // Input type = what React Hook Form receives
 export type CustomerFormInput = z.input<typeof customerSchema>;
 
-// Output type = what Zod returns after validation
+// Output type = validated data returned by Zod
 export type CustomerFormData = z.output<typeof customerSchema>;
 
 export interface CustomerItem extends CustomerFormData {
@@ -46,21 +41,15 @@ export function CustomerModal({
   onSubmit,
   initialData,
 }: ModalProps) {
-export function CustomerModal({
-  isOpen,
-  onClose,
-  onSubmit,
-  initialData,
-}: ModalProps) {
   const {
     register,
     handleSubmit,
     reset,
     setValue,
     formState: { errors },
-  } = useForm<CustomerFormInput, unknown, CustomerFormData>({
   } = useForm<CustomerFormInput, any, CustomerFormData>({
     resolver: zodResolver(customerSchema),
+
     defaultValues: {
       name: "",
       phone: "",
@@ -105,22 +94,18 @@ export function CustomerModal({
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+
+        {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 text-slate-400 hover:text-white"
         >
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 text-slate-400 hover:text-white"
-        >
           <X className="w-5 h-5" />
         </button>
-        
+
+        {/* Title */}
         <h2 className="text-xl font-bold text-white mb-4">
-          {initialData
-            ? "Edit Party Contact"
-            : "Add New Customer / Supplier"}
           {initialData
             ? "Edit Party Contact"
             : "Add New Customer / Supplier"}
@@ -130,16 +115,9 @@ export function CustomerModal({
           onSubmit={handleSubmit(handleFormSubmit)}
           className="space-y-4"
         >
-  
-        <form
-          onSubmit={handleSubmit(handleFormSubmit)}
-          className="space-y-4"
-        >
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Full Name / Business Name
-            </label>
 
+          {/* Name */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Full Name / Business Name
             </label>
@@ -155,18 +133,10 @@ export function CustomerModal({
                 {errors.name.message}
               </p>
             )}
-
-            {errors.name && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.name.message}
-              </p>
-            )}
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Phone Number
-            </label>
 
+          {/* Phone */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Phone Number
             </label>
@@ -182,18 +152,10 @@ export function CustomerModal({
                 {errors.phone.message}
               </p>
             )}
-
-            {errors.phone && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.phone.message}
-              </p>
-            )}
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Party Type
-            </label>
 
+          {/* Party Type */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Party Type
             </label>
@@ -209,19 +171,11 @@ export function CustomerModal({
               <option value="Supplier">
                 Supplier (Takes Money)
               </option>
-              <option value="Customer">
-                Customer (Gives Money)
-              </option>
-              <option value="Supplier">
-                Supplier (Takes Money)
-              </option>
             </select>
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Opening Balance (Rs.)
-            </label>
 
+          {/* Opening Balance */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Opening Balance (Rs.)
             </label>
@@ -239,14 +193,11 @@ export function CustomerModal({
                 {errors.openingBalance.message}
               </p>
             )}
-
-            {errors.openingBalance && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.openingBalance.message}
-              </p>
-            )}
           </div>
+
+          {/* Buttons */}
           <div className="flex justify-end gap-2 pt-2">
+
             <button
               type="button"
               onClick={onClose}
@@ -255,13 +206,13 @@ export function CustomerModal({
               Cancel
             </button>
 
-
             <button
               type="submit"
               className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg transition-colors"
             >
               {initialData ? "Update Party" : "Save Party"}
             </button>
+
           </div>
         </form>
       </div>

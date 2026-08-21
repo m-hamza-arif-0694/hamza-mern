@@ -18,9 +18,6 @@ const transactionSchema = z.object({
   date: z.string().min(1, "Date is required"),
 });
 
-export type TransactionFormData = z.output<typeof transactionSchema>;
-
-type TransactionFormInput = z.input<typeof transactionSchema>;
 // Input type = data coming from the form
 export type TransactionFormInput = z.input<typeof transactionSchema>;
 
@@ -44,19 +41,12 @@ export function TransactionModal({
   onSubmit,
   initialData,
 }: ModalProps) {
-export function TransactionModal({
-  isOpen,
-  onClose,
-  onSubmit,
-  initialData,
-}: ModalProps) {
   const {
     register,
     handleSubmit,
     reset,
     setValue,
     formState: { errors },
-  } = useForm<TransactionFormInput, unknown, TransactionFormData>({
   } = useForm<TransactionFormInput, any, TransactionFormData>({
     resolver: zodResolver(transactionSchema),
 
@@ -67,6 +57,7 @@ export function TransactionModal({
       date: new Date().toISOString().split("T")[0],
     },
   });
+
   useEffect(() => {
     if (initialData) {
       setValue("partyName", initialData.partyName);
@@ -86,6 +77,7 @@ export function TransactionModal({
   if (!isOpen) {
     return null;
   }
+
   const handleFormSubmit = (data: TransactionFormData) => {
     onSubmit(data);
 
@@ -102,17 +94,15 @@ export function TransactionModal({
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+
         <button
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 text-slate-400 hover:text-white"
         >
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 text-slate-400 hover:text-white"
-        >
           <X className="w-5 h-5" />
         </button>
+
         <h2 className="text-xl font-bold text-white mb-4">
           {initialData ? "Edit Transaction" : "Add New Transaction"}
         </h2>
@@ -121,15 +111,9 @@ export function TransactionModal({
           onSubmit={handleSubmit(handleFormSubmit)}
           className="space-y-4"
         >
-        <form
-          onSubmit={handleSubmit(handleFormSubmit)}
-          className="space-y-4"
-        >
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Customer / Party Name
-            </label>
 
+          {/* Customer / Party Name */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Customer / Party Name
             </label>
@@ -145,18 +129,10 @@ export function TransactionModal({
                 {errors.partyName.message}
               </p>
             )}
-
-            {errors.partyName && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.partyName.message}
-              </p>
-            )}
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Transaction Type
-            </label>
 
+          {/* Transaction Type */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Transaction Type
             </label>
@@ -172,19 +148,11 @@ export function TransactionModal({
               <option value="Gave Money">
                 Gave Money (Cash Out -)
               </option>
-              <option value="Got Money">
-                Got Money (Cash In +)
-              </option>
-              <option value="Gave Money">
-                Gave Money (Cash Out -)
-              </option>
             </select>
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Amount (Rs.)
-            </label>
 
+          {/* Amount */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Amount (Rs.)
             </label>
@@ -202,18 +170,10 @@ export function TransactionModal({
                 {errors.amount.message}
               </p>
             )}
-
-            {errors.amount && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.amount.message}
-              </p>
-            )}
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Date
-            </label>
 
+          {/* Date */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Date
             </label>
@@ -229,13 +189,9 @@ export function TransactionModal({
                 {errors.date.message}
               </p>
             )}
-
-            {errors.date && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.date.message}
-              </p>
-            )}
           </div>
+
+          {/* Buttons */}
           <div className="flex justify-end gap-2 pt-2">
 
             <button
@@ -245,7 +201,6 @@ export function TransactionModal({
             >
               Cancel
             </button>
-
 
             <button
               type="submit"

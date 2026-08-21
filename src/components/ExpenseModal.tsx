@@ -21,18 +21,8 @@ const expenseSchema = z.object({
     "Other",
   ]),
 
-  amount: z.coerce.number().positive("Amount must be greater than 0"),
-  category: z.enum([
-    "Rent",
-    "Utilities",
-    "Salaries",
-    "Supplies",
-    "Other",
-  ]),
   date: z.string().min(1, "Date is required"),
 });
-export type ExpenseFormData = z.output<typeof expenseSchema>;
-type ExpenseFormInput = z.input<typeof expenseSchema>;
 
 // Input type = data coming from the form
 export type ExpenseFormInput = z.input<typeof expenseSchema>;
@@ -43,18 +33,13 @@ export type ExpenseFormData = z.output<typeof expenseSchema>;
 export interface ExpenseItem extends ExpenseFormData {
   id: string;
 }
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: ExpenseFormData) => void;
   initialData?: ExpenseItem | null;
 }
-export function ExpenseModal({
-  isOpen,
-  onClose,
-  onSubmit,
-  initialData,
-}: ModalProps) {
 
 export function ExpenseModal({
   isOpen,
@@ -68,7 +53,6 @@ export function ExpenseModal({
     reset,
     setValue,
     formState: { errors },
-  } = useForm<ExpenseFormInput, unknown, ExpenseFormData>({
   } = useForm<ExpenseFormInput, any, ExpenseFormData>({
     resolver: zodResolver(expenseSchema),
 
@@ -116,17 +100,15 @@ export function ExpenseModal({
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+
         <button
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 text-slate-400 hover:text-white"
         >
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 text-slate-400 hover:text-white"
-        >
           <X className="w-5 h-5" />
         </button>
+
         <h2 className="text-xl font-bold text-white mb-4">
           {initialData ? "Edit Expense Entry" : "Add New Expense"}
         </h2>
@@ -135,15 +117,9 @@ export function ExpenseModal({
           onSubmit={handleSubmit(handleFormSubmit)}
           className="space-y-4"
         >
-        <form
-          onSubmit={handleSubmit(handleFormSubmit)}
-          className="space-y-4"
-        >
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Expense Title
-            </label>
 
+          {/* Expense Title */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Expense Title
             </label>
@@ -159,18 +135,10 @@ export function ExpenseModal({
                 {errors.title.message}
               </p>
             )}
-
-            {errors.title && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.title.message}
-              </p>
-            )}
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Amount (Rs.)
-            </label>
 
+          {/* Amount */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Amount (Rs.)
             </label>
@@ -188,18 +156,10 @@ export function ExpenseModal({
                 {errors.amount.message}
               </p>
             )}
-
-            {errors.amount && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.amount.message}
-              </p>
-            )}
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Category
-            </label>
 
+          {/* Category */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Category
             </label>
@@ -215,11 +175,9 @@ export function ExpenseModal({
               <option value="Other">Other</option>
             </select>
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Date
-            </label>
 
+          {/* Date */}
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Date
             </label>
@@ -235,13 +193,9 @@ export function ExpenseModal({
                 {errors.date.message}
               </p>
             )}
-
-            {errors.date && (
-              <p className="text-xs text-rose-500 mt-1">
-                {errors.date.message}
-              </p>
-            )}
           </div>
+
+          {/* Buttons */}
           <div className="flex justify-end gap-2 pt-2">
 
             <button
@@ -251,7 +205,6 @@ export function ExpenseModal({
             >
               Cancel
             </button>
-
 
             <button
               type="submit"
