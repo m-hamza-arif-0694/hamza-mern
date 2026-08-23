@@ -7,8 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { X } from "lucide-react";
 
 const transactionSchema = z.object({
-  partyName: z.string().min(2, "Party/Customer name is required"),
-  amount: z.coerce.number().positive("Amount must be greater than 0"),
+  partyName: z.string().min(2, "Party name must be at least 2 characters"),
+  amount: z.number().min(0.01, "Amount must be greater than 0"),
   type: z.enum(["Got Money", "Gave Money"]),
   date: z.string().min(1, "Date is required"),
 });
@@ -38,6 +38,7 @@ export function TransactionModal({ isOpen, onClose, onSubmit, initialData }: Mod
     defaultValues: {
       type: "Got Money",
       date: new Date().toISOString().split("T")[0],
+      amount: 0,
     },
   });
 
@@ -73,12 +74,12 @@ export function TransactionModal({ isOpen, onClose, onSubmit, initialData }: Mod
         </button>
 
         <h2 className="text-xl font-bold text-white mb-4">
-          {initialData ? "Edit Transaction" : "Add New Transaction"}
+          {initialData ? "Edit Transaction" : "Record New Transaction"}
         </h2>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Customer / Party Name</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">Party / Customer Name</label>
             <input
               {...register("partyName")}
               placeholder="e.g. Ali Traders"
@@ -88,21 +89,11 @@ export function TransactionModal({ isOpen, onClose, onSubmit, initialData }: Mod
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Transaction Type</label>
-            <select
-              {...register("type")}
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
-            >
-              <option value="Got Money">Got Money (Cash In +)</option>
-              <option value="Gave Money">Gave Money (Cash Out -)</option>
-            </select>
-          </div>
-
-          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">Amount (Rs.)</label>
             <input
               type="number"
-              {...register("amount")}
+              step="any"
+              {...register("amount", { valueAsNumber: true })}
               placeholder="0.00"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
@@ -110,11 +101,21 @@ export function TransactionModal({ isOpen, onClose, onSubmit, initialData }: Mod
           </div>
 
           <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">Transaction Type</label>
+            <select
+              {...register("type")}
+              className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
+            >
+              <option value="Got Money">Got Money (Cash In)</option>
+              <option value="Gave Money">Gave Money (Cash Out)</option>
+            </select>
+          </div>
+
+          <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">Date</label>
             <input
-              type="text"
+              type="date"
               {...register("date")}
-              placeholder="YYYY-MM-DD"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
             {errors.date && <p className="text-xs text-rose-500 mt-1">{errors.date.message}</p>}

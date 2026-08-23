@@ -10,7 +10,7 @@ const customerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
   type: z.enum(["Customer", "Supplier"]),
-  openingBalance: z.coerce.number().min(0, "Balance cannot be negative"),
+  openingBalance: z.number().min(0, "Balance cannot be negative"),
 });
 
 export type CustomerFormData = z.infer<typeof customerSchema>;
@@ -112,7 +112,7 @@ export function CustomerModal({ isOpen, onClose, onSubmit, initialData }: ModalP
             <label className="block text-xs font-semibold text-slate-400 mb-1">Opening Balance (Rs.)</label>
             <input
               type="number"
-              {...register("openingBalance")}
+              {...register("openingBalance", { valueAsNumber: true })}
               placeholder="0.00"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />

@@ -8,7 +8,7 @@ import { X } from "lucide-react";
 
 const expenseSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
-  amount: z.coerce.number().positive("Amount must be greater than 0"),
+  amount: z.number().min(0.01, "Amount must be greater than 0"),
   category: z.enum(["Rent", "Utilities", "Salaries", "Supplies", "Other"]),
   date: z.string().min(1, "Date is required"),
 });
@@ -38,6 +38,7 @@ export function ExpenseModal({ isOpen, onClose, onSubmit, initialData }: ModalPr
     defaultValues: {
       category: "Utilities",
       date: new Date().toISOString().split("T")[0],
+      amount: 0,
     },
   });
 
@@ -50,7 +51,7 @@ export function ExpenseModal({ isOpen, onClose, onSubmit, initialData }: ModalPr
     } else {
       reset({
         title: "",
-        amount: undefined,
+        amount: 0,
         category: "Utilities",
         date: new Date().toISOString().split("T")[0],
       });
@@ -73,15 +74,15 @@ export function ExpenseModal({ isOpen, onClose, onSubmit, initialData }: ModalPr
         </button>
 
         <h2 className="text-xl font-bold text-white mb-4">
-          {initialData ? "Edit Expense Entry" : "Add New Expense"}
+          {initialData ? "Edit Expense" : "Record New Expense"}
         </h2>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Expense Title</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">Expense Title / Description</label>
             <input
               {...register("title")}
-              placeholder="e.g. Office Electricity Bill"
+              placeholder="e.g. Electricity Bill"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
             {errors.title && <p className="text-xs text-rose-500 mt-1">{errors.title.message}</p>}
@@ -91,7 +92,8 @@ export function ExpenseModal({ isOpen, onClose, onSubmit, initialData }: ModalPr
             <label className="block text-xs font-semibold text-slate-400 mb-1">Amount (Rs.)</label>
             <input
               type="number"
-              {...register("amount")}
+              step="any"
+              {...register("amount", { valueAsNumber: true })}
               placeholder="0.00"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
@@ -117,7 +119,7 @@ export function ExpenseModal({ isOpen, onClose, onSubmit, initialData }: ModalPr
             <input
               type="date"
               {...register("date")}
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-slate-300"
+              className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
             {errors.date && <p className="text-xs text-rose-500 mt-1">{errors.date.message}</p>}
           </div>
