@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -15,6 +15,12 @@ import { AlertCircle } from "lucide-react";
 
 
 export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
   const router = useRouter();
 
   const [authError, setAuthError] = useState<string | null>(null);
