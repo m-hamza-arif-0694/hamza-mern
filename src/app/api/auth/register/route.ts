@@ -1,43 +1,86 @@
-import { NextResponse } from 'next/server';
-import { registerSchema } from '../../../../lib/validations/auth';
-import { hashPassword, signToken } from '../../../../lib/auth';
+import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import User from "@/models/User";
+import { hashPassword, createAuthToken } from "@/lib/auth";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const validation = registerSchema.safeParse(body);
 
-    if (!validation.success) {
+    const { name, email, password } = body;
+
+    if (!name || !email || !password) {
       return NextResponse.json(
-        { error: 'Invalid input data', details: validation.error.flatten().fieldErrors },
+        {
+          message: "Name, email and password are required",
+        },
         { status: 400 }
       );
     }
 
-    const { name, email, password } = validation.data;
+    if (password.length < 6) {
+      return NextResponse.json(
+        {
+          message: "Password must be at least 6 characters",
+        },
+        { status: 400 }
+      );
+    }
 
-    // TODO: Check if user already exists in DB
-    const hashedPassword = await hashPassword(password);
+    await connectDB();
 
-    // TODO: Create user record in DB
-    const mockUser = { id: 'usr_123', name, email };
-    const token = signToken({ id: mockUser.id, email: mockUser.email });
+    const normalizedEmail = email.toLowerCase().trim();
 
-    const response = NextResponse.json(
-      { message: 'User registered successfully', user: mockUser },
-      { status: 201 }
-    );
-
-    response.cookies.set('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-      path: '/',
+    const existingUser = await User.findOne({
+      email: normalizedEmail,
     });
 
-    return response;
-  } catch {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (existingUser) {
+      return NextResponse.json(
+        {
+          message: "User with this email already exists",
+        },
+        { status: 409 }
+      );
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    const user = await User.create({
+      name: name.trim(),
+      email: normalizedEmail,
+      password: hashedPassword,
+      role: "user",
+    });
+
+    const token = await createAuthToken({
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+
+    return NextResponse.json(
+      {
+        message: "Registration successful",
+        token,
+        user: {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Registration error:", error);
+
+    return NextResponse.json(
+      {
+        message: "Something went wrong during registration",
+      },
+      { status: 500 }
+    );
   }
 }

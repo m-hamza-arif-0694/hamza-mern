@@ -1,34 +1,93 @@
-import { loginSchema } from '../../../../lib/validations/auth';
-import { signToken } from '../../../../lib/auth';
-import { successResponse, errorResponse, validateBody } from '../../../../lib/api';
+import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import User from "@/models/User";
+import {
+  verifyPassword,
+  createAuthToken,
+  createRefreshToken,
+} from "@/lib/auth";
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const { data, error } = await validateBody(request, loginSchema);
+    await connectDB();
 
-    if (error) {
-      return errorResponse('Validation failed', 400, error);
+    const body = await req.json();
+    const { email, password } = body;
+
+    if (!email || !password) {
+      return NextResponse.json(
+        { message: "Email and password are required" },
+        { status: 400 }
+      );
     }
 
-    const { email } = data;
+    const user = await User.findOne({
+      email: email.toLowerCase().trim(),
+    });
 
-    // TODO: Connect database check
-    const mockUser = { id: 'usr_123', name: 'Test User', email };
-    const token = signToken({ id: mockUser.id, email: mockUser.email });
+    if (!user) {
+      return NextResponse.json(
+        { message: "Invalid email or password" },
+        { status: 401 }
+      );
+    }
 
-    const response = successResponse({ message: 'Logged in successfully', user: mockUser });
+    const passwordValid = await verifyPassword(
+      password,
+      user.password
+    );
 
-    response.cookies.set('token', token, {
+    if (!passwordValid) {
+      return NextResponse.json(
+        { message: "Invalid email or password" },
+        { status: 401 }
+      );
+    }
+
+    const authUser = {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
+    const accessToken = await createAuthToken(authUser);
+    const refreshToken = await createRefreshToken(authUser);
+
+    const response = NextResponse.json(
+      {
+        message: "Login successful",
+        user: authUser,
+      },
+      { status: 200 }
+    );
+    response.cookies.set({
+      name: "hisabdo_auth_token",
+      value: accessToken,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 15,
+    });
+    response.cookies.set({
+      name: "hisabdo_refresh_token",
+      value: refreshToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
       maxAge: 60 * 60 * 24 * 7,
-      path: '/',
     });
 
     return response;
-  } catch (err) {
-    console.error('Login error:', err);
-    return errorResponse('Internal server error', 500);
+  } catch (error) {
+    console.error("Login error:", error);
+
+    return NextResponse.json(
+      {
+        message: "Something went wrong during login",
+      },
+      { status: 500 }
+    );
   }
 }

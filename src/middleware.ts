@@ -1,22 +1,31 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
+import { verifyAuthToken } from "@/lib/auth";
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value;
-  const isAuthPage = request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/register');
-  const isDashboardPage = request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/customers');
-
-  if (isDashboardPage && !token) {
-    return NextResponse.redirect(new URL('/login', request.url));
+export async function middleware(request: NextRequest) {
+  const token = request.cookies.get("hisabdo_auth_token")?.value;
+  const pathname = request.nextUrl.pathname;
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
+  const user = await verifyAuthToken(token);
+  if (!user) {
+    const response = NextResponse.redirect(
+      new URL("/login", request.url)
+    );
+    response.cookies.delete("hisabdo_auth_token");
 
-  if (isAuthPage && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return response;
   }
-
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/login', '/register'],
+  matcher: [
+    "/dashboard/:path*",
+    "/customers/:path*",
+    "/expenses/:path*",
+    "/reports/:path*",
+    "/profile/:path*",
+    "/settings/:path*",
+  ],
 };
