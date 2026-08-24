@@ -61,6 +61,7 @@ export function ExpenseModal({
       amount: 0,
       category: "Utilities",
       date: new Date().toISOString().split("T")[0],
+      amount: 0,
     },
   });
 
@@ -110,7 +111,7 @@ export function ExpenseModal({
         </button>
 
         <h2 className="text-xl font-bold text-white mb-4">
-          {initialData ? "Edit Expense Entry" : "Add New Expense"}
+          {initialData ? "Edit Expense" : "Record New Expense"}
         </h2>
 
         <form
@@ -126,7 +127,7 @@ export function ExpenseModal({
 
             <input
               {...register("title")}
-              placeholder="e.g. Office Electricity Bill"
+              placeholder="e.g. Electricity Bill"
               className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
 
@@ -185,7 +186,7 @@ export function ExpenseModal({
             <input
               type="date"
               {...register("date")}
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-slate-300"
+              className="w-full bg-slate-950 border border-slate-800 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"
             />
 
             {errors.date && (

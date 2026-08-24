@@ -55,6 +55,7 @@ export function TransactionModal({
       amount: 0,
       type: "Got Money",
       date: new Date().toISOString().split("T")[0],
+      amount: 0,
     },
   });
 
@@ -104,7 +105,7 @@ export function TransactionModal({
         </button>
 
         <h2 className="text-xl font-bold text-white mb-4">
-          {initialData ? "Edit Transaction" : "Add New Transaction"}
+          {initialData ? "Edit Transaction" : "Record New Transaction"}
         </h2>
 
         <form
