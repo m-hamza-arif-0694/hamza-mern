@@ -17,11 +17,7 @@ const transactionSchema = z.object({
 
   date: z.string().min(1, "Date is required"),
 });
-
-// Input type = data coming from the form
 export type TransactionFormInput = z.input<typeof transactionSchema>;
-
-// Output type = validated data returned by Zod
 export type TransactionFormData = z.output<typeof transactionSchema>;
 
 export interface TransactionItem extends TransactionFormData {
@@ -34,7 +30,6 @@ interface ModalProps {
   onSubmit: (data: TransactionFormData) => void;
   initialData?: TransactionItem | null;
 }
-
 export function TransactionModal({
   isOpen,
   onClose,
@@ -111,8 +106,6 @@ export function TransactionModal({
           onSubmit={handleSubmit(handleFormSubmit)}
           className="space-y-4"
         >
-
-          {/* Customer / Party Name */}
           <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Customer / Party Name
@@ -130,8 +123,6 @@ export function TransactionModal({
               </p>
             )}
           </div>
-
-          {/* Transaction Type */}
           <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Transaction Type
@@ -150,8 +141,6 @@ export function TransactionModal({
               </option>
             </select>
           </div>
-
-          {/* Amount */}
           <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Amount (Rs.)
@@ -171,8 +160,6 @@ export function TransactionModal({
               </p>
             )}
           </div>
-
-          {/* Date */}
           <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">
               Date
@@ -190,8 +177,6 @@ export function TransactionModal({
               </p>
             )}
           </div>
-
-          {/* Buttons */}
           <div className="flex justify-end gap-2 pt-2">
 
             <button
