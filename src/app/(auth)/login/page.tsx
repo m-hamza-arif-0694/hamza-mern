@@ -3,17 +3,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import {
+  loginSchema,
+  LoginFormData,
+} from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { AlertCircle } from "lucide-react";
 
-const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
-});
 
-type LoginFormData = z.infer<typeof loginSchema>;
+
 
 export default function LoginPage() {
   const router = useRouter();
