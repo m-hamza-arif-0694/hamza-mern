@@ -162,4 +162,10 @@ git push -u origin main
 
 ---
 
+## 📧 Submission Info
+* **Author**: Muhammad Hamza Arif
+* **Track**: HisabDo MERN Track (Day 1 Submission)
+* **Submitted to**: `hisabdo.app@gmail.com`
+* **Last Updated**: August 25, 2026
+
 *Submitted for Day 1 – HisabDo Internship Bootcamp (MERN Track)* 🚀

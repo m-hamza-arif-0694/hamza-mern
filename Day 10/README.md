@@ -120,3 +120,4 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 * **Author**: Muhammad Hamza Arif
 * **Track**: HisabDo MERN / Next.js Internship Track (Day 10 Capstone)
 * **Submitted to**: `hisabdo.app@gmail.com`
+* **Last Updated**: August 25, 2026
