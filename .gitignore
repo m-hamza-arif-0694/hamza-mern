@@ -9,7 +9,7 @@ dist/
 out/
 build/
 
-# Testing
+# Testing & Coverage
 coverage/
 
 # Environment files
@@ -21,7 +21,23 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# System files
+# System files & IDE
 .DS_Store
 Thumbs.db
 *.pem
+.vscode/
+
+# Root Level Documents, Reports, Scripts & Temporary Files
+/*.html
+/*.pdf
+/*.docx
+/*.js
+/generate_final_report_pdf.js
+/HisabDo_Final_Work_Report_Muhammad_Hamza_Arif.html
+/HisabDo_Final_Work_Report_Muhammad_Hamza_Arif.pdf
+/HisabDo_QA_Audit_Report_Muhammad_Hamza_Arif.pdf
+/Muhammad Hamza Arif offer letter from XICTEK Systems.pdf
+/MuhammadHamzaArif.docx
+/report_template.html
+/QA Audit/
+/scripts/
